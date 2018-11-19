@@ -425,7 +425,7 @@ export default class Directive implements ng.IDirective {
 			// event listeners
 			const focusInput = (e?: JQueryEventObject) => {
 				if (e) e.preventDefault();
-				$scope.input[0].focus();
+				//$scope.input[0].focus();
 			};
 			// use `touchstart` for iOS Safari, where click events aren't propogated under most circumstances.
 			$scope.input
