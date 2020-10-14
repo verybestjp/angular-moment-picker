@@ -1,5 +1,5 @@
-import * as angular from 'angular';
-import * as moment from 'moment';
+declare var angular: any;
+declare var moment: any;
 import { getOffset } from './helpers';
 import { IProviderOptions } from './provider';
 import { ViewString, IView, IViewItem, IDirectiveScopeInternal, IModelController } from './definitions';
@@ -36,7 +36,8 @@ export default class Directive implements ng.IDirective {
 		showHeader:  '=?',
 		additions:   '=?',
 		change:      '&?',
-		selectable:  '&?'
+		selectable:  '&?',
+		clearText:   '@?'
 	};
 
 	constructor(

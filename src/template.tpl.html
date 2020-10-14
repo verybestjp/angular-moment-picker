@@ -2,6 +2,7 @@
     <div class="moment-picker-container {{view.selected}}-view"
          ng-class="{'moment-picker-disabled': disabled, open: view.isOpen}">
         <div ng-if="additions.top" class="moment-picker-addition top"></div>
+        <div ng-click="$parent.value=undefined;view.close()" ng-if="clearText" class="moment-picker-clear-text">{{clearText}}</div>
         <table class="header-view" ng-if="showHeader">
             <thead>
                 <tr>

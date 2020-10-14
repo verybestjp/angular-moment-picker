@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+declare var angular: any;
 import Provider from './provider';
 import Directive from './directive';
 

@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+declare var angular: any;
 import { ViewString, Position } from './definitions';
 
 export interface IProviderOptions {

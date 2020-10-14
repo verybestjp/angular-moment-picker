@@ -1,4 +1,4 @@
-import { IView, IViewItem, IDirectiveScopeInternal, IModelController } from '../definitions';
+declare var angular: any;
 import { IProviderOptions } from '../provider';
 import { isValidMoment } from '../utility';
 

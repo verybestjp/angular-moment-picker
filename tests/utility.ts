@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+declare var angular: any;
 import { IDirectiveScopeInternal } from '../src/definitions';
 
 let $compile, $timeout, $rootScope;

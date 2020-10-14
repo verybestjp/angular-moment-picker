@@ -1,5 +1,5 @@
-import * as angular from 'angular';
-import * as moment from 'moment';
+declare var angular: any;
+declare var moment: any;
 import { Value, IDirectiveScopeInternal, IModelController, ViewString } from './definitions';
 
 export const KEYS = { up: 38, down: 40, left: 37, right: 39, escape: 27, enter: 13 };

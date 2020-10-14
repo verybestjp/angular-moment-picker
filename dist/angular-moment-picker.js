@@ -64,7 +64,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,8 +74,6 @@
 "use strict";
 
 exports.__esModule = true;
-var angular = __webpack_require__(1);
-var moment = __webpack_require__(2);
 exports.KEYS = { up: 38, down: 40, left: 37, right: 39, escape: 27, enter: 13 };
 exports.isValidMoment = function (value) {
     return moment.isMoment(value) && value.isValid();
@@ -147,37 +145,24 @@ exports.updateMoment = function (model, value, $scope) {
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = angular;
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = moment;
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var angular = __webpack_require__(1);
-var provider_1 = __webpack_require__(9);
+var provider_1 = __webpack_require__(7);
 exports.Provider = provider_1["default"];
-var directive_1 = __webpack_require__(7);
+var directive_1 = __webpack_require__(5);
 exports.Directive = directive_1["default"];
 angular
     .module('moment-picker', [])
@@ -191,24 +176,22 @@ angular
 
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=moment-picker> <div class=\"moment-picker-container {{view.selected}}-view\" ng-class=\"{'moment-picker-disabled': disabled, open: view.isOpen}\"> <div ng-if=additions.top class=\"moment-picker-addition top\"></div> <table class=header-view ng-if=showHeader> <thead> <tr> <th ng-class=\"{disabled: !view.previous.selectable}\" ng-click=view.previous.set()> <div ng-bind-html=view.previous.label></div> </th> <th ng-bind=view.title ng-click=view.setParentView()> <div ng-bind-html=view.title></div> </th> <th ng-class=\"{disabled: !view.next.selectable}\" ng-click=view.next.set()> <div ng-bind-html=view.next.label></div> </th> </tr> </thead> </table> <div class=moment-picker-specific-views> <table> <thead ng-if=views[view.selected].headers> <tr> <th ng-repeat=\"header in views[view.selected].headers\"> <div ng-bind=header></div> </th> </tr> </thead> <tbody> <tr ng-repeat=\"row in views[view.selected].rows\"> <td ng-repeat=\"item in row track by item.index\" ng-class=item.class ng-click=\"!disabled && views[view.selected].set(item)\"> <div ng-bind=item.label></div> </td> </tr> </tbody> </table> </div> <div ng-if=additions.bottom class=\"moment-picker-addition bottom\"></div> </div> </div> ";
+module.exports = "<div class=moment-picker> <div class=\"moment-picker-container {{view.selected}}-view\" ng-class=\"{'moment-picker-disabled': disabled, open: view.isOpen}\"> <div ng-if=additions.top class=\"moment-picker-addition top\"></div> <div ng-click=\"$parent.value=undefined;view.close()\" ng-if=clearText class=moment-picker-clear-text>{{clearText}}</div> <table class=header-view ng-if=showHeader> <thead> <tr> <th ng-class=\"{disabled: !view.previous.selectable}\" ng-click=view.previous.set()> <div ng-bind-html=view.previous.label></div> </th> <th ng-bind=view.title ng-click=view.setParentView()> <div ng-bind-html=view.title></div> </th> <th ng-class=\"{disabled: !view.next.selectable}\" ng-click=view.next.set()> <div ng-bind-html=view.next.label></div> </th> </tr> </thead> </table> <div class=moment-picker-specific-views> <table> <thead ng-if=views[view.selected].headers> <tr> <th ng-repeat=\"header in views[view.selected].headers\"> <div ng-bind=header></div> </th> </tr> </thead> <tbody> <tr ng-repeat=\"row in views[view.selected].rows\"> <td ng-repeat=\"item in row track by item.index\" ng-class=item.class ng-click=\"!disabled && views[view.selected].set(item)\"> <div ng-bind=item.label></div> </td> </tr> </tbody> </table> </div> <div ng-if=additions.bottom class=\"moment-picker-addition bottom\"></div> </div> </div> ";
 
 /***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var angular = __webpack_require__(1);
-var moment = __webpack_require__(2);
-var helpers_1 = __webpack_require__(8);
-var views_1 = __webpack_require__(13);
+var helpers_1 = __webpack_require__(6);
+var views_1 = __webpack_require__(11);
 var utility_1 = __webpack_require__(0);
-var templateHtml = __webpack_require__(6);
+var templateHtml = __webpack_require__(4);
 var Directive = /** @class */ (function () {
     function Directive($timeout, $sce, $log, $window, provider, $compile, $templateCache) {
         var _this = this;
@@ -246,7 +229,8 @@ var Directive = /** @class */ (function () {
             showHeader: '=?',
             additions: '=?',
             change: '&?',
-            selectable: '&?'
+            selectable: '&?',
+            clearText: '@?'
         };
         this.link = function ($scope, $element, $attrs, $ctrl, $transclude) {
             $transclude(function ($transElement) {
@@ -658,7 +642,7 @@ exports["default"] = Directive;
 
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -689,13 +673,12 @@ exports.getOffset = function (element) {
 
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var angular = __webpack_require__(1);
 var Provider = /** @class */ (function () {
     function Provider() {
         this.settings = {
@@ -747,7 +730,7 @@ exports["default"] = Provider;
 
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -800,7 +783,7 @@ exports["default"] = DayView;
 
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -851,14 +834,12 @@ exports["default"] = DecadeView;
 
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var angular = __webpack_require__(1);
-var moment = __webpack_require__(2);
 var utility_1 = __webpack_require__(0);
 var HourView = /** @class */ (function () {
     function HourView($scope, $ctrl, provider) {
@@ -929,34 +910,33 @@ exports["default"] = HourView;
 
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var decadeView_1 = __webpack_require__(11);
+var decadeView_1 = __webpack_require__(9);
 exports.DecadeView = decadeView_1["default"];
-var yearView_1 = __webpack_require__(16);
+var yearView_1 = __webpack_require__(14);
 exports.YearView = yearView_1["default"];
-var monthView_1 = __webpack_require__(15);
+var monthView_1 = __webpack_require__(13);
 exports.MonthView = monthView_1["default"];
-var dayView_1 = __webpack_require__(10);
+var dayView_1 = __webpack_require__(8);
 exports.DayView = dayView_1["default"];
-var hourView_1 = __webpack_require__(12);
+var hourView_1 = __webpack_require__(10);
 exports.HourView = hourView_1["default"];
-var minuteView_1 = __webpack_require__(14);
+var minuteView_1 = __webpack_require__(12);
 exports.MinuteView = minuteView_1["default"];
 
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var angular = __webpack_require__(1);
 var utility_1 = __webpack_require__(0);
 var MinuteView = /** @class */ (function () {
     function MinuteView($scope, $ctrl, provider) {
@@ -1028,14 +1008,12 @@ exports["default"] = MinuteView;
 
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var angular = __webpack_require__(1);
-var moment = __webpack_require__(2);
 var utility_1 = __webpack_require__(0);
 var MonthView = /** @class */ (function () {
     function MonthView($scope, $ctrl, provider) {
@@ -1088,13 +1066,12 @@ exports["default"] = MonthView;
 
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var moment = __webpack_require__(2);
 var utility_1 = __webpack_require__(0);
 var YearView = /** @class */ (function () {
     function YearView($scope, $ctrl, provider) {
@@ -1141,12 +1118,12 @@ exports["default"] = YearView;
 
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(5);
 __webpack_require__(3);
-module.exports = __webpack_require__(4);
+__webpack_require__(1);
+module.exports = __webpack_require__(2);
 
 
 /***/ })

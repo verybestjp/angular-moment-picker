@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+declare var moment: any;
 import * as test from './utility';
 
 describe('Value', () => {

@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+declare var moment: any;
 import { IView, IViewItem, IDirectiveScopeInternal, IModelController } from '../definitions';
 import { IProviderOptions } from '../provider';
 import { isValidMoment } from '../utility';

@@ -28,8 +28,7 @@
     "release": "npm run test && webpack --define increase='patch' && webpack -p",
     "test": "node ./node_modules/karma/bin/karma start"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/angular": "^1.5.21",
     "@types/angular-mocks": "^1.5.8",
@@ -48,9 +47,9 @@
     "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^2.0.3",
+    "moment": "^2.16.0",
     "less": "^2.7.1",
     "less-loader": "^4.0.3",
-    "moment": "^2.16.0",
     "postcss": "^5.2.6",
     "postcss-loader": "^2.0.5",
     "semver": "^5.3.0",

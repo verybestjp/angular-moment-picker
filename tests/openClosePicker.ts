@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+declare var angular: any;
 import * as test from './utility';
 
 describe('Open / close picker', () => {

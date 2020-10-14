@@ -1,5 +1,5 @@
-import * as angular from 'angular';
-import * as moment from 'moment';
+declare var angular: any;
+declare var moment: any;
 import * as test from '../utility';
 
 describe('Property `locale`', () => {

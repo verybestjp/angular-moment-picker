@@ -1,5 +1,5 @@
-import * as angular from 'angular';
-import * as moment from 'moment';
+declare var angular: any;
+declare var moment: any;
 import { IProviderOptions } from './provider';
 
 export type ViewString = 'decade' | 'year' | 'month' | 'day' | 'hour' | 'minute';

@@ -1,5 +1,5 @@
-import * as angular from 'angular';
-import * as moment from 'moment';
+declare var angular: any;
+declare var moment: any;
 import * as test from '../utility';
 import { IProviderOptions } from '../../src/provider';
 import { ViewString, IView } from '../../src/definitions';
