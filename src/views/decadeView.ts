@@ -1,6 +1,6 @@
 import { IView, IViewItem, IDirectiveScopeInternal, IModelController } from '../definitions';
 import { IProviderOptions } from '../provider';
-import { isValidMoment } from '../utility';
+import { isValidMoment, showYear } from '../utility';
 
 export default class DecadeView implements IView {
 	public perLine: number = 4;
@@ -9,8 +9,9 @@ export default class DecadeView implements IView {
 	constructor(
 		private $scope: IDirectiveScopeInternal,
 		private $ctrl: IModelController,
-		private provider: IProviderOptions) { }
-	
+		private provider: IProviderOptions,
+		private FrontConfig: FrontConfig) { }
+
 	public render(): string {
 		let year = this.$scope.view.moment.clone(),
 			firstYear = Math.floor(year.year() / 10) * 10 - 1;
@@ -24,7 +25,7 @@ export default class DecadeView implements IView {
 			if (!this.rows[index]) this.rows[index] = [];
 			this.rows[index].push(<IViewItem>{
 				index: year.year(),
-				label: year.format(this.provider.yearsFormat),
+				label: showYear(year.format(this.provider.yearsFormat), this.FrontConfig),
 				year: year.year(),
 				class: [
 					this.$scope.keyboard && year.isSame(this.$scope.view.moment, 'year') ? 'highlighted' : '',
@@ -35,7 +36,7 @@ export default class DecadeView implements IView {
 			year.add(1, 'years');
 		}
 		// return title
-		return [year.subtract(2, 'years').format('YYYY'), year.subtract(9, 'years').format('YYYY')].reverse().join(' - ');
+		return [showYear(year.subtract(2, 'years').format('YYYY'), this.FrontConfig), showYear(year.subtract(9, 'years').format('YYYY'), this.FrontConfig)].reverse().join(' - ');
 	}
 
 	public set(year: IViewItem): void {

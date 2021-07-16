@@ -67,3 +67,27 @@ export const updateMoment = (model: moment.Moment, value: moment.Moment, $scope:
 	}
 	return model;
 };
+
+export const showYear = (year: string, FrontConfig: any): string => {
+  var getDate = function getDate(y, m, d) {
+    return new Date(y, m - 1, d);
+  }
+  const inputDate: Date = getDate(year, 12, 31);
+  let ret = year;
+  const westernYear = '(' + year + ')';
+
+  if (!FrontConfig || !FrontConfig.jpdate_western_only) {
+    if (inputDate - getDate(2019, 5, 1) >= 0) {
+      ret = '令' + (year - 2018) + westernYear;
+    } else if (inputDate - getDate(1989, 1, 8) >= 0) {
+      ret = '平' + (year - 1988) + westernYear;
+    } else if (inputDate - getDate(1926, 12, 25) >= 0) {
+      ret = '昭' + (year - 1925) + westernYear;
+    } else if (inputDate - getDate(1912, 7, 30) >= 0) {
+      ret = '大' + (year - 1911) + westernYear;
+    } else if (inputDate - getDate(1868, 1, 25) >= 0) {
+      ret = '明' + (year - 1867) + westernYear;
+    }
+  }
+  return ret;
+};

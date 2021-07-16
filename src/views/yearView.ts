@@ -1,7 +1,7 @@
 declare var moment: any;
 import { IView, IViewItem, IDirectiveScopeInternal, IModelController } from '../definitions';
 import { IProviderOptions } from '../provider';
-import { isValidMoment } from '../utility';
+import { isValidMoment, showYear } from '../utility';
 
 class YearView implements IView {
 	public perLine: number = 4;
@@ -10,7 +10,8 @@ class YearView implements IView {
 	constructor(
 		private $scope: IDirectiveScopeInternal,
 		private $ctrl: IModelController,
-		private provider: IProviderOptions) { }
+		private provider: IProviderOptions,
+		private FrontConfig: FrontConfig) { }
 
 	public render(): string {
 		let month = this.$scope.view.moment.clone().startOf('year'),
@@ -36,7 +37,7 @@ class YearView implements IView {
 			month.add(1, 'months');
 		});
 		// return title
-		return this.$scope.view.moment.format('YYYY');
+		return showYear(this.$scope.view.moment.format('YYYY'), this.FrontConfig);
 	}
 
 	public set(month: IViewItem): void {

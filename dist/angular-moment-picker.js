@@ -139,6 +139,32 @@ exports.updateMoment = function (model, value, $scope) {
     }
     return model;
 };
+exports.showYear = function (year, FrontConfig) {
+    var getDate = function getDate(y, m, d) {
+        return new Date(y, m - 1, d);
+    };
+    var inputDate = getDate(year, 12, 31);
+    var ret = year;
+    var westernYear = '(' + year + ')';
+    if (!FrontConfig || !FrontConfig.jpdate_western_only) {
+        if (inputDate - getDate(2019, 5, 1) >= 0) {
+            ret = '令' + (year - 2018) + westernYear;
+        }
+        else if (inputDate - getDate(1989, 1, 8) >= 0) {
+            ret = '平' + (year - 1988) + westernYear;
+        }
+        else if (inputDate - getDate(1926, 12, 25) >= 0) {
+            ret = '昭' + (year - 1925) + westernYear;
+        }
+        else if (inputDate - getDate(1912, 7, 30) >= 0) {
+            ret = '大' + (year - 1911) + westernYear;
+        }
+        else if (inputDate - getDate(1868, 1, 25) >= 0) {
+            ret = '明' + (year - 1867) + westernYear;
+        }
+    }
+    return ret;
+};
 
 
 /***/ }),
@@ -168,9 +194,9 @@ angular
     .module('moment-picker', [])
     .provider('momentPicker', [function () { return new provider_1["default"](); }])
     .directive('momentPicker', [
-    '$timeout', '$sce', '$log', '$window', 'momentPicker', '$compile', '$templateCache',
-    function ($timeout, $sce, $log, $window, momentPicker, $compile, $templateCache) {
-        return new directive_1["default"]($timeout, $sce, $log, $window, momentPicker, $compile, $templateCache);
+    '$timeout', '$sce', '$log', '$window', 'momentPicker', '$compile', '$templateCache', 'FrontConfig',
+    function ($timeout, $sce, $log, $window, momentPicker, $compile, $templateCache, FrontConfig) {
+        return new directive_1["default"]($timeout, $sce, $log, $window, momentPicker, $compile, $templateCache, FrontConfig);
     }
 ]);
 
@@ -193,7 +219,7 @@ var views_1 = __webpack_require__(11);
 var utility_1 = __webpack_require__(0);
 var templateHtml = __webpack_require__(4);
 var Directive = /** @class */ (function () {
-    function Directive($timeout, $sce, $log, $window, provider, $compile, $templateCache) {
+    function Directive($timeout, $sce, $log, $window, provider, $compile, $templateCache, FrontConfig) {
         var _this = this;
         this.$timeout = $timeout;
         this.$sce = $sce;
@@ -202,6 +228,7 @@ var Directive = /** @class */ (function () {
         this.provider = provider;
         this.$compile = $compile;
         this.$templateCache = $templateCache;
+        this.FrontConfig = FrontConfig;
         this.restrict = 'A';
         this.require = '?ngModel';
         this.transclude = true;
@@ -336,8 +363,8 @@ var Directive = /** @class */ (function () {
                         $scope.detectedMaxView = $scope.views.all[maxView];
                     },
                     // specific views
-                    decade: new views_1.DecadeView($scope, $ctrl, _this.provider),
-                    year: new views_1.YearView($scope, $ctrl, _this.provider),
+                    decade: new views_1.DecadeView($scope, $ctrl, _this.provider, FrontConfig),
+                    year: new views_1.YearView($scope, $ctrl, _this.provider, FrontConfig),
                     month: new views_1.MonthView($scope, $ctrl, _this.provider),
                     day: new views_1.DayView($scope, $ctrl, _this.provider),
                     hour: new views_1.HourView($scope, $ctrl, _this.provider),
@@ -791,10 +818,11 @@ exports["default"] = DayView;
 exports.__esModule = true;
 var utility_1 = __webpack_require__(0);
 var DecadeView = /** @class */ (function () {
-    function DecadeView($scope, $ctrl, provider) {
+    function DecadeView($scope, $ctrl, provider, FrontConfig) {
         this.$scope = $scope;
         this.$ctrl = $ctrl;
         this.provider = provider;
+        this.FrontConfig = FrontConfig;
         this.perLine = 4;
         this.rows = {};
     }
@@ -808,7 +836,7 @@ var DecadeView = /** @class */ (function () {
                 this.rows[index] = [];
             this.rows[index].push({
                 index: year.year(),
-                label: year.format(this.provider.yearsFormat),
+                label: utility_1.showYear(year.format(this.provider.yearsFormat), this.FrontConfig),
                 year: year.year(),
                 "class": [
                     this.$scope.keyboard && year.isSame(this.$scope.view.moment, 'year') ? 'highlighted' : '',
@@ -819,7 +847,7 @@ var DecadeView = /** @class */ (function () {
             year.add(1, 'years');
         }
         // return title
-        return [year.subtract(2, 'years').format('YYYY'), year.subtract(9, 'years').format('YYYY')].reverse().join(' - ');
+        return [utility_1.showYear(year.subtract(2, 'years').format('YYYY'), this.FrontConfig), utility_1.showYear(year.subtract(9, 'years').format('YYYY'), this.FrontConfig)].reverse().join(' - ');
     };
     DecadeView.prototype.set = function (year) {
         if (!year.selectable)
@@ -1074,10 +1102,11 @@ exports["default"] = MonthView;
 exports.__esModule = true;
 var utility_1 = __webpack_require__(0);
 var YearView = /** @class */ (function () {
-    function YearView($scope, $ctrl, provider) {
+    function YearView($scope, $ctrl, provider, FrontConfig) {
         this.$scope = $scope;
         this.$ctrl = $ctrl;
         this.provider = provider;
+        this.FrontConfig = FrontConfig;
         this.perLine = 4;
         this.rows = {};
     }
@@ -1103,7 +1132,7 @@ var YearView = /** @class */ (function () {
             month.add(1, 'months');
         });
         // return title
-        return this.$scope.view.moment.format('YYYY');
+        return utility_1.showYear(this.$scope.view.moment.format('YYYY'), this.FrontConfig);
     };
     YearView.prototype.set = function (month) {
         if (!month.selectable)

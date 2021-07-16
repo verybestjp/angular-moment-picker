@@ -47,7 +47,8 @@ export default class Directive implements ng.IDirective {
 		private $window: ng.IWindowService,
 		private provider: IProviderOptions,
 		private $compile: ng.ICompileService,
-		private $templateCache: ng.ITemplateCacheService) { }
+		private $templateCache: ng.ITemplateCacheService,
+		private FrontConfig: any) { }
 
 	public link = ($scope: IDirectiveScopeInternal, $element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $ctrl: IModelController, $transclude: ng.ITranscludeFunction) => {
 		$transclude(($transElement: ng.IAugmentedJQuery) => {
@@ -140,8 +141,8 @@ export default class Directive implements ng.IDirective {
 					$scope.detectedMaxView = $scope.views.all[maxView];
 				},
 				// specific views
-				decade:	new DecadeView	($scope, $ctrl, this.provider),
-				year:	new YearView	($scope, $ctrl, this.provider),
+				decade:	new DecadeView	($scope, $ctrl, this.provider, FrontConfig),
+				year:	new YearView	($scope, $ctrl, this.provider, FrontConfig),
 				month:	new MonthView	($scope, $ctrl, this.provider),
 				day:	new DayView		($scope, $ctrl, this.provider),
 				hour:	new HourView	($scope, $ctrl, this.provider),
